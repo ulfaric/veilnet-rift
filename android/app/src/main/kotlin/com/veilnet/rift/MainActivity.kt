@@ -1,6 +1,5 @@
 package com.veilnet.rift
 
-import android.app.Activity
 import android.content.Intent
 import android.net.VpnService
 import androidx.core.content.ContextCompat
@@ -56,6 +55,20 @@ class MainActivity : FlutterActivity() {
                             result.success(true)
                         } catch (e: Exception) {
                             result.error("Fail to stop", e.message, null)
+                        }
+                    }
+
+                    "metric" ->{
+                        try{
+                            val metric = call.argument<String>("metric")
+                            if (metric == null) {
+                                result.error("Missing argument", "Metric is missing", null)
+                            } else {
+                                val value = VeilNet.getMetrics(metric)
+                                result.success(value)
+                            }
+                        } catch (e: Exception){
+                            result.error("Fail to get metric", e.message, null)
                         }
                     }
 

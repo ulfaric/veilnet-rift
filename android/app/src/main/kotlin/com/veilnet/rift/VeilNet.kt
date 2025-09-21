@@ -40,6 +40,15 @@ class VeilNet : VpnService() {
                 instance?.stopSelf()
             }
         }
+
+        fun getMetrics(metrics: String): Long {
+            instance?.let { veilnet ->
+                veilnet.anchor?.let { anchor ->
+                    return anchor.getAnchorMetrics(metrics)
+                }
+            }
+            return -1
+        }
     }
 
     private var tunInterface: ParcelFileDescriptor? = null
